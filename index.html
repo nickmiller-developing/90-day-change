@@ -1490,7 +1490,7 @@ async function loadGcalEvents(){
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
+        model:'claude-sonnet-4-5',
         max_tokens:800,
         mcp_servers:[{type:'url',url:'https://calendarmcp.googleapis.com/mcp/v1',name:'google-calendar'}],
         messages:[{role:'user',content:'List all Google Calendar events for today '+todayISO+' Toronto time. Return ONLY JSON array no markdown: [{title,time,endTime,allDay}]. If none return [].'}]
