@@ -2014,7 +2014,7 @@ function gcalSignIn(){
     'client_id='+GCAL_CLIENT_ID,
     'redirect_uri='+encodeURIComponent(window.location.origin+window.location.pathname),
     'response_type=token',
-    'scope='+encodeURIComponent('https://www.googleapis.com/auth/calendar.readonly'),
+    'scope='+encodeURIComponent('https://nickmiller-developing.github.io/90-day-change/'),
     'prompt=consent'
   ].join('&');
   window.location.href = 'https://accounts.google.com/o/oauth2/v2/auth?'+params;
