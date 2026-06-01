@@ -874,7 +874,10 @@ function deleteAssignment(){
 }
 function toggleAssignment(i){
   const a=S.get('assignments')||[];a[i].done=!a[i].done;S.set('assignments',a);
-  // Pre-load Nick's assignments — force v3 seed
+  renderAssignments();rebuildCals();
+}
+
+// Pre-load Nick's assignments — force v3 seed
 (function(){
   if(S.get('assignments_seeded_v3')) return;
   // Always overwrite with the correct assignment list
@@ -894,8 +897,6 @@ function toggleAssignment(i){
   S.set('assignments', seeded);
   S.set('assignments_seeded_v3', true);
 })();
-renderAssignments();
-}
 
 function renderAssignments(){
   const assignments=S.get('assignments')||[];
