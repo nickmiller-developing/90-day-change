@@ -1546,7 +1546,9 @@ async function kvGetAll(){
         body:JSON.stringify({action:'kv_get_all'})
       }, 8000);
       if(!res.ok){ console.warn('[BLOOM] kvGetAll failed', res.status); return null; }
-      return await res.json();
+      var txt = await res.text();
+      if(!txt || !txt.trim()){ console.warn('[BLOOM] kvGetAll empty body'); return null; }
+      try{ return JSON.parse(txt); }catch(pe){ console.warn('[BLOOM] kvGetAll JSON parse error', pe.message, txt.slice(0,100)); return null; }
     }catch(e){
       if(i < attempts - 1){
         console.warn('[BLOOM] kvGetAll attempt '+(i+1)+' failed, retrying in '+delay+'ms...', e.message);
@@ -1648,6 +1650,7 @@ function applyConfig(){
 
 async function syncFromKV(){
   var data = await kvGetAll();
+  if(data) console.log('[BLOOM] KV sync OK — keys:', Object.keys(data).filter(function(k){ return data[k]!==null; }).join(', '));
 
   if(data && typeof data === 'object' && !data.error){
     // KV returned data — merge it in (KV wins over localStorage for cross-device sync)
